@@ -1,19 +1,32 @@
-name: Windows Task
+name: Example Workflow
 
 on: [push]
 
 jobs:
-  run-on-windows:
+  job1:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Print message from job1 - step 1
+        run: echo "This is the first message from job1."
 
-      - name: Print message
-        run: |
-          echo "Hello from GitHub Actions on Windows!"
-        
-      - name: Open Notepad
-        run: |
-          Start-Process notepad.exe
+      - name: Print message from job1 - step 2
+        run: echo "This is the second message from job1."
+
+  job2:
+    runs-on: windows-latest
+    steps:
+      - name: Print message from job2 - step 1
+        run: echo "This is the first message from job2."
+
+      - name: Print message from job2 - step 2
+        run: echo "This is the second message from job2."
+
+  job3:
+    runs-on: windows-latest
+    needs: [job1, job2]
+    steps:
+      - name: Print message from job3 - step 1
+        run: echo "This is the first message from job3."
+
+      - name: Print message from job3 - step 2
+        run: echo "This is the second message from job3."
